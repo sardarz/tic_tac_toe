@@ -4,14 +4,15 @@ import restartIcon from "./assets/icon-restart.svg";
 import { ReactComponent as ICON_X_SMALL } from "./assets/icon-x-small.svg";
 import { ReactComponent as ICON_X } from "./assets/icon-x.svg";
 import { ReactComponent as ICON_O } from "./assets/icon-o.svg";
-import { ReactComponent as ICON_X_OUTLINE } from "./assets/icon-x-outline.svg"
-import { ReactComponent as ICON_O_OUTLINE } from "./assets/icon-o-outline.svg"
+import { ReactComponent as ICON_X_OUTLINE } from "./assets/icon-x-outline.svg";
+import { ReactComponent as ICON_O_OUTLINE } from "./assets/icon-o-outline.svg";
+import WinnerModal from "./WinnerModal";
 
 const Game = () => {
   const [currentPlayer, setCurrentPlayer] = useState("X");
   const [boardState, setBoardState] = useState(new Array(9).fill(null));
-  const [score, setScore] = useState({x: 0, ties: 0, o: 0})
-  const boardRef = useRef(null)
+  const [score, setScore] = useState({ x: 0, ties: 0, o: 0 });
+  const boardRef = useRef(null);
 
   const getWinner = (inputArray) => {
     const array = [];
@@ -24,53 +25,42 @@ const Game = () => {
       let row = [];
       let column = [];
       for (let j = 0; j < array.length; j++) {
-        row.push(array[i][j])
-        column.push(array[j][i])
+        row.push(array[i][j]);
+        column.push(array[j][i]);
       }
-      answers.push(row)
-      answers.push(column)
+      answers.push(row);
+      answers.push(column);
     }
     let leftDiagonal = [];
     let rightDiagonal = [];
     for (let i = 0; i < array.length; i++) {
-      leftDiagonal.push(array[i][i])
-      rightDiagonal.push(array[i][2 - i])
+      leftDiagonal.push(array[i][i]);
+      rightDiagonal.push(array[i][2 - i]);
     }
-    answers.push(leftDiagonal)
-    answers.push(rightDiagonal)
-    
+    answers.push(leftDiagonal);
+    answers.push(rightDiagonal);
+
     for (let answer of answers) {
-      let [x, y, z] = answer
-      if (x === y && x === z && x) return x
+      let [x, y, z] = answer;
+      if (x === y && x === z && x) return x;
     }
-    console.log(boardState)
-    return null
-  }
+    return inputArray.filter((x) => x).length === 9 ? "ties" : null;
+  };
 
-  useEffect(() => {
-    const winner = getWinner(boardState);
-    if (winner === "X") {
-      setScore({...score, x: score.x + 1})
-      setBoardState(new Array(9).fill(null))
-      setCurrentPlayer('X')
-      boardRef.current.classList.remove('current-o')
-      boardRef.current.classList.add('current-x')
-    }
-    else if (winner === "O") {
-      setScore({...score, o: score.o + 1})
-      setBoardState(new Array(9).fill(null))
-      setCurrentPlayer('X')
-      boardRef.current.classList.remove('current-o')
-      boardRef.current.classList.add('current-x')
-    } else if (boardState.filter(x => x).length === 9) {
-      setScore({...score, ties: score.ties + 1})
-      setBoardState(new Array(9).fill(null))
-      setCurrentPlayer('X')
-      boardRef.current.classList.remove('current-o')
-      boardRef.current.classList.add('current-x')
-    }
-  })
+  const updateWinnerScore = (w) => {
+    if (w === "X") setScore({ ...score, x: score.x + 1 });
+    if (w === "O") setScore({ ...score, o: score.o + 1 });
+    if (w === "ties") setScore({ ...score, ties: score.ties + 1 });
+    setBoardState(new Array(9).fill(null));
+    setCurrentPlayer("X");
+    boardRef.current.classList.remove("current-o");
+    boardRef.current.classList.add("current-x");
+  };
 
+  // useEffect(() => {
+  //   const winner = getWinner(boardState);
+  //   if (winner !== null) updateWinnerScore(winner)
+  // });
 
   const checkCell = (evt) => {
     const currentCell = evt.target;
@@ -79,11 +69,11 @@ const Game = () => {
     if (boardState[currentIdx] !== null) return;
 
     if (currentPlayer === "X") {
-      evt.currentTarget.classList.remove('current-x')
-      evt.currentTarget.classList.add('current-o')
+      evt.currentTarget.classList.remove("current-x");
+      evt.currentTarget.classList.add("current-o");
     } else if (currentPlayer === "O") {
-      evt.currentTarget.classList.remove('current-o')
-      evt.currentTarget.classList.add('current-x')
+      evt.currentTarget.classList.remove("current-o");
+      evt.currentTarget.classList.add("current-x");
     }
     let newGameBoard = boardState.slice();
     newGameBoard[currentIdx] = currentPlayer;
@@ -91,7 +81,6 @@ const Game = () => {
     setCurrentPlayer(newPlayer);
     setBoardState(newGameBoard);
   };
-
 
   return (
     <main className="game">
@@ -107,15 +96,27 @@ const Game = () => {
               </div>
               <p>turn</p>
             </div>
-            <div className="game-restart" onClick={() => {setBoardState(new Array(9).fill(null))}}>
+            <div
+              className="game-restart"
+              onClick={() => {
+                setBoardState(new Array(9).fill(null));
+              }}
+            >
               <img src={restartIcon} alt="" />
             </div>
           </div>
 
-          <div className="game-board current-x" ref={boardRef} onClick={checkCell}>
+          <div
+            className="game-board current-x"
+            ref={boardRef}
+            onClick={checkCell}
+          >
             {boardState.map((cell, idx) => {
               return (
-                <div key={idx} className={`game-cell ${cell === null ? "empty-cell" : ""}`}>
+                <div
+                  key={idx}
+                  className={`game-cell ${cell === null ? "empty-cell" : ""}`}
+                >
                   {boardState[idx] === "X" ? (
                     <ICON_X />
                   ) : boardState[idx] === "O" ? (
@@ -150,6 +151,14 @@ const Game = () => {
           </div>
         </div>
       </div>
+      {getWinner(boardState) !== null ? (
+        <WinnerModal
+          updateWinnerScore={updateWinnerScore}
+          winner={getWinner(boardState)}
+        />
+      ) : (
+        <div></div>
+      )}
     </main>
   );
 };

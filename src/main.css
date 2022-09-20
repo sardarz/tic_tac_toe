@@ -306,3 +306,91 @@ h2 {
 
 
 /* GAME PAGE */
+
+
+/* WINNER MODAL */
+
+.modal-winner-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-winner {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4.5rem 0;
+  background-color: var(--clr-bg-500);
+  height: 26rem;
+}
+
+
+.modal-winner-text {
+  margin-bottom: 1.6rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--clr-grey-200);
+  text-transform: uppercase;
+}
+
+.modal-winner-mark {
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+  font-size: 4rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: var(--clr-grey-200);
+}
+
+.modal-winner-mark.X {
+  color: var(--clr-primary-600);
+}
+
+.modal-winner-mark.O {
+  color: var(--clr-primary-500);
+}
+
+.modal-winner-btns {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.modal-winner-btn {
+  padding: 1.5rem 1.7rem 1.7rem;
+  border-radius: 1rem;
+  outline: 0;
+  border: 0;
+  font-size: 1.6rem;
+  letter-spacing: 1px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--clr-bg-600);
+  cursor: pointer;
+  transition: transform .1s ease;
+}
+
+.modal-winner-btn:active {
+  transform: translateY(2px);
+}
+
+.modal-winner-btn-next {
+  box-shadow: inset 0px -4px 0px #CC8B13;
+  background-color: var(--clr-primary-500);
+}
+
+.modal-winner-btn-quit {
+  box-shadow: inset 0px -4px 0px #6B8997;
+  background-color: var(--clr-grey-200);
+}
+
+/* WINNER MODAL */
