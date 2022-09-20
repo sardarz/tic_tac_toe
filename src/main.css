@@ -328,7 +328,7 @@ h2 {
   align-items: center;
   padding: 4.5rem 0;
   background-color: var(--clr-bg-500);
-  height: 26rem;
+  height: 26.6rem;
 }
 
 
@@ -348,6 +348,7 @@ h2 {
   font-size: 4rem;
   font-weight: 700;
   letter-spacing: 2.5px;
+  text-transform: uppercase;
   color: var(--clr-grey-200);
 }
 
@@ -392,5 +393,16 @@ h2 {
   box-shadow: inset 0px -4px 0px #6B8997;
   background-color: var(--clr-grey-200);
 }
+
+.restart .modal-winner-mark {
+  margin-bottom: 3.1rem;
+}
+
+.restart .modal-winner {
+  padding: 6.5rem 0 6.6rem;
+}
+
+
+
 
 /* WINNER MODAL */

@@ -7,11 +7,13 @@ import { ReactComponent as ICON_O } from "./assets/icon-o.svg";
 import { ReactComponent as ICON_X_OUTLINE } from "./assets/icon-x-outline.svg";
 import { ReactComponent as ICON_O_OUTLINE } from "./assets/icon-o-outline.svg";
 import WinnerModal from "./WinnerModal";
+import RestartModal from "./RestartModal";
 
 const Game = () => {
   const [currentPlayer, setCurrentPlayer] = useState("X");
   const [boardState, setBoardState] = useState(new Array(9).fill(null));
   const [score, setScore] = useState({ x: 0, ties: 0, o: 0 });
+  const [showRestart, setShowRestart] = useState(false);
   const boardRef = useRef(null);
 
   const getWinner = (inputArray) => {
@@ -99,7 +101,7 @@ const Game = () => {
             <div
               className="game-restart"
               onClick={() => {
-                setBoardState(new Array(9).fill(null));
+                setShowRestart(true);
               }}
             >
               <img src={restartIcon} alt="" />
@@ -151,6 +153,10 @@ const Game = () => {
           </div>
         </div>
       </div>
+      {showRestart ? (
+        <RestartModal closeModal={() => setShowRestart(false)} restartGame={() => setScore({ x: 0, ties: 0, o: 0 })} />
+      ) : null}
+
       {getWinner(boardState) !== null ? (
         <WinnerModal
           updateWinnerScore={updateWinnerScore}
