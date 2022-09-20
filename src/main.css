@@ -106,7 +106,7 @@ h2 {
   transition: fill 0.3s ease;
 }
 
-#icon-x path {
+.menu #icon-x path {
   fill: var(--clr-bg-600);
 }
 
@@ -187,6 +187,7 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 1.9rem;
 }
 
 .game-turn {
@@ -199,7 +200,7 @@ h2 {
   background-color: var(--clr-bg-500);
   border-radius: 1rem;
   text-transform: uppercase;
-  box-shadow: inset 0px -4px 0px #10212A;
+  box-shadow: inset 0px -4px 0px #10212a;
 }
 
 .game-turn-icon-wrapper {
@@ -221,13 +222,30 @@ h2 {
   padding: 1.6rem;
   background-color: var(--clr-grey-200);
   border-radius: 1rem;
-  box-shadow: inset 0px -4px 0px #6B8997;
+  box-shadow: inset 0px -4px 0px #6b8997;
   cursor: pointer;
-  transition: transform .1s ease;
+  transition: transform 0.1s ease;
 }
 
 .game-restart:active {
   transform: translateY(2px);
+}
+
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.game-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 14rem;
+  background-color: var(--clr-bg-500);
+  box-shadow: inset 0px -8px 0px #10212a;
+  border-radius: 15px;
+  cursor: pointer;
 }
 
 /* GAME PAGE */

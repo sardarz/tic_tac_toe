@@ -2,6 +2,8 @@ import React from "react";
 import logo from "./assets/logo.svg";
 import restartIcon from "./assets/icon-restart.svg";
 import { ReactComponent as ICON_X_SMALL } from "./assets/icon-x-small.svg";
+import { ReactComponent as ICON_X } from "./assets/icon-x.svg"
+import { ReactComponent as ICON_O } from "./assets/icon-o.svg"
 
 const Game = () => {
   return (
@@ -21,6 +23,18 @@ const Game = () => {
             <div className="game-restart">
               <img src={restartIcon} alt="" />
             </div>
+          </div>
+
+          <div className="game-board">
+            <div className="game-cell"><ICON_X /></div>
+            <div className="game-cell"><ICON_O /></div>
+            <div className="game-cell"></div>
+            <div className="game-cell"></div>
+            <div className="game-cell"></div>
+            <div className="game-cell"></div>
+            <div className="game-cell"></div>
+            <div className="game-cell"></div>
+            <div className="game-cell"></div>
           </div>
         </div>
       </div>
