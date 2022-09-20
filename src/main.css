@@ -235,6 +235,7 @@ h2 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
+  margin-bottom: 1.9rem;
 }
 
 .game-cell {
@@ -246,6 +247,47 @@ h2 {
   box-shadow: inset 0px -8px 0px #10212a;
   border-radius: 15px;
   cursor: pointer;
+}
+
+.game-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.game-stats > * {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 1.5rem;
+  width: 100%;
+  padding: 1.3rem 0 1.1rem;
+}
+
+.game-stats-x {
+  background-color: var(--clr-primary-600);
+}
+
+.game-stats-tie {
+  background-color: var(--clr-grey-200);
+}
+
+.game-stats-o {
+  background-color: var(--clr-primary-500);
+}
+
+.game-stats p {
+  font-size: 1.4rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.game-stat-output {
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
 }
 
 /* GAME PAGE */
