@@ -1,6 +1,7 @@
 import React from "react";
-import logo from "./assets/logo.svg"
-import restartIcon from "./assets/icon-restart.svg"
+import logo from "./assets/logo.svg";
+import restartIcon from "./assets/icon-restart.svg";
+import { ReactComponent as ICON_X_SMALL } from "./assets/icon-x-small.svg";
 
 const Game = () => {
   return (
@@ -11,12 +12,16 @@ const Game = () => {
             <div className="game-logo">
               <img src={logo} alt="" />
             </div>
-            <p className="game-turn"><span className="game-current-turn">X</span>turn</p>
+            <div className="game-turn">
+              <div className="game-turn-icon-wrapper">
+                <ICON_X_SMALL />
+              </div> 
+              <p>turn</p>
+            </div>
             <div className="game-restart">
               <img src={restartIcon} alt="" />
-            </div> 
+            </div>
           </div>
-
         </div>
       </div>
     </main>

@@ -183,7 +183,51 @@ h2 {
   min-height: 100vh;
 }
 
+.game-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
+.game-turn {
+  display: flex;
+  align-items: center;
+  padding: 1.3rem 3rem 1.9rem;
+  color: var(--clr-grey-200);
+  font-weight: 700;
+  font-size: 1.6rem;
+  background-color: var(--clr-bg-500);
+  border-radius: 1rem;
+  text-transform: uppercase;
+  box-shadow: inset 0px -4px 0px #10212A;
+}
 
+.game-turn-icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1.3rem;
+}
+
+.game-turn-icon-wrapper path {
+  fill: var(--clr-grey-200);
+}
+
+.game-turn p {
+  letter-spacing: 1px;
+}
+
+.game-restart {
+  padding: 1.6rem;
+  background-color: var(--clr-grey-200);
+  border-radius: 1rem;
+  box-shadow: inset 0px -4px 0px #6B8997;
+  cursor: pointer;
+  transition: transform .1s ease;
+}
+
+.game-restart:active {
+  transform: translateY(2px);
+}
 
 /* GAME PAGE */
