@@ -290,4 +290,19 @@ h2 {
   letter-spacing: 1.5px;
 }
 
+.icon-outline {
+  position: absolute;
+  display: none;
+  pointer-events: none;
+}
+
+.current-x .empty-cell:hover .icon-x-outline {
+  display: block;
+}
+
+.current-o .empty-cell:hover .icon-o-outline {
+  display: block;
+}
+
+
 /* GAME PAGE */
