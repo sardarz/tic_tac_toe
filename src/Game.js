@@ -1,16 +1,65 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import logo from "./assets/logo.svg";
 import restartIcon from "./assets/icon-restart.svg";
 import { ReactComponent as ICON_X_SMALL } from "./assets/icon-x-small.svg";
+import { ReactComponent as ICON_O_SMALL } from "./assets/icon-o-small.svg";
 import { ReactComponent as ICON_X } from "./assets/icon-x.svg";
 import { ReactComponent as ICON_O } from "./assets/icon-o.svg";
 import { ReactComponent as ICON_X_OUTLINE } from "./assets/icon-x-outline.svg";
 import { ReactComponent as ICON_O_OUTLINE } from "./assets/icon-o-outline.svg";
 import WinnerModal from "./WinnerModal";
 import RestartModal from "./RestartModal";
+import PlayerContext from "./PlayerContext";
+import { useSearchParams } from "react-router-dom";
+import Minimax from "tic-tac-toe-minimax"
+
 
 const Game = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [currentPlayer, setCurrentPlayer] = useState("X");
+  const [gameEnd, setGameEnd] = useState(false)
+  
+  const { firstPlayerMark } = useContext(PlayerContext);
+  let isVersusCPU = Boolean(searchParams.get("isVersusCPU"));
+  
+  const {ComputerMove} = Minimax
+  
+  const huPlayer = firstPlayerMark
+  const aiPlayer = firstPlayerMark === "X" ? "O" : "X";
+  const symbols = {huPlayer, aiPlayer};
+  const difficulty = "Normal" // Easy, Normal, Hard;
+  
+  const makeNextMoveCPU = (boardState) => {
+
+    let board = [];
+    for(let i = 0; i < 9; i++) {
+      board.push(i);
+    }
+
+    for (let i = 0; i < 9; i++) {
+      if (boardState[i] !== null) board[i] = boardState[i]
+    }
+    const nextMove = ComputerMove(board, symbols, difficulty)
+    return nextMove
+
+  }
+
+  useEffect(() => {
+    if (isVersusCPU && getWinner(boardState) === null) {
+      if(currentPlayer !== aiPlayer) return
+      let move = makeNextMoveCPU(boardState);
+      if (boardState.filter(x => x).length < 9) {
+        const arr = Array.from(boardRef.current.children)
+          arr[move].click()
+      }
+
+    }
+  })
+
+
+
+
+
   const [boardState, setBoardState] = useState(new Array(9).fill(null));
   const [score, setScore] = useState({ x: 0, ties: 0, o: 0 });
   const [showRestart, setShowRestart] = useState(false);
@@ -59,17 +108,12 @@ const Game = () => {
     boardRef.current.classList.add("current-x");
   };
 
-  // useEffect(() => {
-  //   const winner = getWinner(boardState);
-  //   if (winner !== null) updateWinnerScore(winner)
-  // });
-
   const checkCell = (evt) => {
     const currentCell = evt.target;
     const gameBoard = Array.from(evt.currentTarget.children);
     const currentIdx = gameBoard.findIndex((el) => el === currentCell);
     if (boardState[currentIdx] !== null) return;
-
+    // change icon cell on hover
     if (currentPlayer === "X") {
       evt.currentTarget.classList.remove("current-x");
       evt.currentTarget.classList.add("current-o");
@@ -82,6 +126,7 @@ const Game = () => {
     let newPlayer = currentPlayer === "X" ? "O" : "X";
     setCurrentPlayer(newPlayer);
     setBoardState(newGameBoard);
+
   };
 
   return (
@@ -94,7 +139,7 @@ const Game = () => {
             </div>
             <div className="game-turn">
               <div className="game-turn-icon-wrapper">
-                <ICON_X_SMALL />
+                {currentPlayer === "X" ? <ICON_X_SMALL /> : <ICON_O_SMALL />}
               </div>
               <p>turn</p>
             </div>
@@ -135,9 +180,16 @@ const Game = () => {
 
           <div className="game-stats">
             <div className="game-stats-x">
-              <p>
-                x <span>(you)</span>
-              </p>
+              {isVersusCPU ? (
+                <p>
+                  x <span>{firstPlayerMark === "X" ? "(YOU)" : "(CPU)"}</span>
+                </p>
+              ) : (
+                <p>
+                  x <span>{firstPlayerMark === "X" ? "(P1)" : "(P2)"}</span>
+                </p>
+              )}
+
               <div className="game-stat-output">{score.x}</div>
             </div>
             <div className="game-stats-tie">
@@ -145,16 +197,25 @@ const Game = () => {
               <div className="game-stat-output">{score.ties}</div>
             </div>
             <div className="game-stats-o">
-              <p>
-                o <span>(cpu)</span>
-              </p>
+              {isVersusCPU ? (
+                <p>
+                  o <span>{firstPlayerMark === "O" ? "(YOU)" : "(CPU)"}</span>
+                </p>
+              ) : (
+                <p>
+                  o <span>{firstPlayerMark === "O" ? "(P1)" : "(P2)"}</span>
+                </p>
+              )}
               <div className="game-stat-output">{score.o}</div>
             </div>
           </div>
         </div>
       </div>
       {showRestart ? (
-        <RestartModal closeModal={() => setShowRestart(false)} restartGame={() => setScore({ x: 0, ties: 0, o: 0 })} />
+        <RestartModal
+          closeModal={() => setShowRestart(false)}
+          restartGame={() => setScore({ x: 0, ties: 0, o: 0 })}
+        />
       ) : null}
 
       {getWinner(boardState) !== null ? (

@@ -1,21 +1,28 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import logo from "./assets/logo.svg";
 import { ReactComponent as IconX } from "./assets/icon-x.svg";
 import { ReactComponent as IconO } from "./assets/icon-o.svg";
+import { useNavigate } from "react-router-dom";
+import PlayerContext from "./PlayerContext";
 
 const Menu = () => {
-  const [currentPlayer, setCurrentPlayer] = useState("X")
+  const { setFirstPlayerMark } = useContext(PlayerContext);
   const chosenRef = useRef(null);
+  const navigate = useNavigate();
 
-  const moveChosenMark = evt => {
-    chosenRef.current.classList.add('chosenMove')
-    setCurrentPlayer('O')
-  }
+  useEffect(() => {
+    setFirstPlayerMark("X")
+  }, [])
 
-  const removeChosenMark = evt => {
-    chosenRef.current.classList.remove('chosenMove')
-    setCurrentPlayer('X')
-  }
+  const moveChosenMark = (evt) => {
+    chosenRef.current.classList.add("chosenMove");
+    setFirstPlayerMark('O')
+  };
+
+  const removeChosenMark = (evt) => {
+    chosenRef.current.classList.remove("chosenMove");
+    setFirstPlayerMark('X')
+  };
   return (
     <section className="menu">
       <div className="container">
@@ -35,8 +42,17 @@ const Menu = () => {
             </div>
             <p>remember: x goes first</p>
           </div>
-          <button className="btn btn-cpu">new game (vs cpu)</button>
-          <button className="btn btn-player">new game (vs player)</button>
+          <button className="btn btn-cpu" onClick={() => {
+            navigate("/game?isVersusCPU=true")
+          }}>new game (vs cpu)</button>
+          <button
+            onClick={() => {
+              navigate("/game");
+            }}
+            className="btn btn-player"
+          >
+            new game (vs player)
+          </button>
         </div>
       </div>
     </section>

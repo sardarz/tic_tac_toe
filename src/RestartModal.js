@@ -1,8 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
 const RestartModal = ({restartGame, closeModal}) => {
-  const navigate = useNavigate();
   return (
     <div className="modal-winner-wrapper restart">
       <div className="modal-winner">
