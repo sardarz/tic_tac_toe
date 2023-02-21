@@ -12,6 +12,8 @@
 body {
   background-color: var(--clr-bg-600);
   font-family: "Outfit", sans-serif;
+  height: 100vh;
+  overflow: hidden;
 }
 
 /* MENU PAGE */
@@ -188,6 +190,10 @@ h2 {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1.9rem;
+}
+
+.game-logo {
+  cursor: pointer;
 }
 
 .game-turn {
