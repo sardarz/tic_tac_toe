@@ -11,7 +11,7 @@ import GameHeader from "./GameHeader";
 
 const Game = () => {
   const { firstPlayerMark } = useContext(PlayerContext);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [currentPlayer, setCurrentPlayer] = useState("X");
   const [boardState, setBoardState] = useState(new Array(9).fill(null));
   const [score, setScore] = useState({ x: 0, ties: 0, o: 0 });

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef} from "react";
 import logo from "./assets/logo.svg";
 import { ReactComponent as IconX } from "./assets/icon-x.svg";
 import { ReactComponent as IconO } from "./assets/icon-o.svg";
@@ -12,7 +12,7 @@ const Menu = () => {
 
   useEffect(() => {
     setFirstPlayerMark("X")
-  }, [])
+  }, [setFirstPlayerMark])
 
   const moveChosenMark = (evt) => {
     chosenRef.current.classList.add("chosenMove");
